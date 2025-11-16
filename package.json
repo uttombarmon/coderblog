@@ -9,9 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@google/genai": "^1.29.1",
     "next": "16.0.3",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "zod": "^4.1.12",
+    "zod-to-json-schema": "^3.24.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
