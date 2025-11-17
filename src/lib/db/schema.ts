@@ -15,7 +15,6 @@ export const user = pgTable("user", {
     .$onUpdate(() => new Date())
     .notNull(),
 });
-
 export const session = pgTable("session", {
   id: text("id").primaryKey(),
   expiresAt: timestamp("expires_at").notNull(),
@@ -30,7 +29,6 @@ export const session = pgTable("session", {
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
 });
-
 export const account = pgTable("account", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),
@@ -52,7 +50,6 @@ export const account = pgTable("account", {
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
-
 export const verification = pgTable("verification", {
   id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),
@@ -64,9 +61,7 @@ export const verification = pgTable("verification", {
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
-
 export const postStatusEnum = pgEnum("post_status", ["draft", "published"]);
-
 export const post = pgTable("post", {
   id: text("id").primaryKey(),
   authorId: text("author_id")
@@ -85,7 +80,6 @@ export const post = pgTable("post", {
     .$onUpdate(() => new Date())
     .notNull(),
 });
-
 export const comment = pgTable("comment", {
   id: text("id").primaryKey(),
 
@@ -118,7 +112,6 @@ export const postLike = pgTable("post_like", {
 
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
-
 export const postDislike = pgTable("post_dislike", {
   id: text("id").primaryKey(),
 
@@ -146,6 +139,7 @@ export const commentLike = pgTable("comment_like", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// relationships
 export const postRelations = relations(post, ({ one, many }) => ({
   author: one(user, {
     fields: [post.authorId],
