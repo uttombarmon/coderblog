@@ -3,8 +3,11 @@ import { pgTable, text, timestamp, boolean, pgEnum } from "drizzle-orm/pg-core";
 export const userRoleEnum = pgEnum("user_role", ["guest", "author", "admin"]);
 export const user = pgTable("user", {
   id: text("id").primaryKey().unique().notNull(),
-  username: text("username").notNull().unique(),
-  fullName: text("name").notNull(),
+  username: text("username")
+    .notNull()
+    .default("user_" + Math.random().toString(36).substring(2, 8)),
+  password: text("password"),
+  name: text("name").notNull(),
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").default(false).notNull(),
   image: text("image"),

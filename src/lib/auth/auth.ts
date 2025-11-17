@@ -39,6 +39,7 @@ export const auth = betterAuth({
   },
   emailVerification: {
     sendVerificationEmail: async ({ user, url, token }, NextRequest) => {
+      console.log("signup-ridrect: ", user);
       await SendVerifyEmail(user.name, user.email, url);
     },
   },

@@ -6,6 +6,7 @@ interface EmailTemplateProps {
 }
 
 export function EmailTemplate({ firstName, url }: EmailTemplateProps) {
+  console.log(firstName, url);
   return (
     <div>
       <h1>Welcome, {firstName}!</h1>

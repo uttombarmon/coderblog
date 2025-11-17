@@ -3,7 +3,7 @@ export default async function SendVerifyEmail(
   email: string,
   url: string
 ) {
-  const response = await fetch("/api/send", {
+  const response = await fetch(`${process.env.BETTER_AUTH_URL}/api/send`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
