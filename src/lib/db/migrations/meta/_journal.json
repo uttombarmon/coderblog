@@ -8,6 +8,13 @@
       "when": 1763325361959,
       "tag": "0000_lame_speed_demon",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1763353857826,
+      "tag": "0001_fearless_cable",
+      "breakpoints": true
     }
   ]
 }
