@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 // your drizzle instance
@@ -15,7 +14,6 @@ import {
   commentLike,
 } from "../db/schema";
 import { username } from "better-auth/plugins";
-import { sendVerificationEmail } from "better-auth/api";
 import SendVerifyEmail from "@/clientApis/email/senEmail";
 
 export const auth = betterAuth({
