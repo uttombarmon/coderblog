@@ -14,17 +14,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 export function SignInCard() {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = Object.fromEntries(formData.entries()) as {
+      fullName: string;
+      email: string;
+      password: string;
+      username: string;
+    };
     const response = await signInEmail(data);
-    if (response?.user) {
+    if (response && response !== null && "user" in response && response.user) {
       redirect("/");
+      toast.success("Sign In Successful");
     }
-    console.log("Sign In Attempted");
+    // console.log("Sign In Attempted");
   };
 
   return (

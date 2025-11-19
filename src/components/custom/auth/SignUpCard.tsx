@@ -18,11 +18,16 @@ import { redirect } from "next/navigation";
 export function SignUpCard() {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = Object.fromEntries(formData.entries()) as {
+      fullName: string;
+      email: string;
+      password: string;
+      username: string;
+    };
     const response = await signUpEmail(data);
-    if (response?.user) {
-      redirect("/auth/sign-in");
+    if (response && response !== null && 'user' in response && response.user) {
+      redirect(`/auth/verify?e=${response.user.email}`);
     }
     console.log("Sign Up Attempted", response);
   };
