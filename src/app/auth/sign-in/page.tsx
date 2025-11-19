@@ -1,7 +1,11 @@
-import React from "react";
+import { SignInCard } from "@/components/custom/auth/SignInCard";
 
 const page = () => {
-  return <div>sign-in page</div>;
+  return (
+    <div className=" min-h-screen min-w-screen flex justify-center items-center">
+      <SignInCard />
+    </div>
+  );
 };
 
 export default page;

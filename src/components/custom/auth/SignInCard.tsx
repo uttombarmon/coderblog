@@ -1,6 +1,6 @@
 "use client";
 
-import signUpEmail from "@/clientApis/auth/signupEmail";
+import signInEmail from "@/clientApis/auth/signInEmail";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,48 +15,28 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-export function SignUpCard() {
+export function SignInCard() {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    const response = await signUpEmail(data);
+    const response = await signInEmail(data);
     if (response?.user) {
-      redirect("/auth/sign-in");
+      redirect("/");
     }
-    console.log("Sign Up Attempted", response);
+    console.log("Sign In Attempted");
   };
 
   return (
     <Card className="w-full max-w-sm">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Create an account</CardTitle>
+        <CardTitle className="text-2xl">Welcome Back to CoderBlog</CardTitle>
         <CardDescription>
-          Enter your email and a password below to start your AI blog journey.
+          Enter your email and a password below to browse and write blog posts.
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSignUp}>
         <CardContent className="grid gap-4">
-          {/* username input field */}
-          <div className="grid gap-2">
-            <Label htmlFor="username">User Name</Label>
-            <Input
-              id="username"
-              name="userName"
-              type="text"
-              placeholder="username..."
-            />
-          </div>
-          {/* full name input field */}
-          <div className="grid gap-2">
-            <Label htmlFor="Full Name">Full Name</Label>
-            <Input
-              id="fullName"
-              name="fullName"
-              type="text"
-              placeholder="Full Name..."
-            />
-          </div>
           {/* Email Input Field */}
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
