@@ -13,8 +13,9 @@ import {
   postDislike,
   commentLike,
 } from "../db/schema";
-import { username } from "better-auth/plugins";
+import { customSession, username } from "better-auth/plugins";
 import SendVerifyEmail from "@/clientApis/email/senEmail";
+import findUserRoles from "./findUserRoles";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -31,6 +32,10 @@ export const auth = betterAuth({
       commentLike,
     },
   }),
+  session: {
+    expiresIn: 60 * 60 * 24 * 7,
+    updateAge: 60 * 60 * 24,
+  },
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
@@ -41,5 +46,18 @@ export const auth = betterAuth({
       await SendVerifyEmail(user.name, user.email, url);
     },
   },
-  plugins: [username()],
+  plugins: [
+    username(),
+    customSession(async ({ user, session }) => {
+      const roles = findUserRoles(user.id);
+      return {
+        roles,
+        user: {
+          ...user,
+          newField: "newField",
+        },
+        session,
+      };
+    }),
+  ],
 });

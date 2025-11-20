@@ -75,7 +75,7 @@ export const post = pgTable("post", {
   slug: text("slug").notNull().unique(),
   content: text("content").notNull(),
   summary: text("summary"),
-  status: text("status").default("draft").notNull(),
+  status: text("status").default("draft"),
 
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
