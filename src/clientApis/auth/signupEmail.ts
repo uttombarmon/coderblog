@@ -16,7 +16,7 @@ export default async function signUpEmail({
     username: username, // required
     email: email, // required
     password: password, // required
-    callbackURL: "/auth/sign-in",
+    callbackURL: "/sign-in",
   });
   if (error) {
     console.log("emailSignUp:", error);

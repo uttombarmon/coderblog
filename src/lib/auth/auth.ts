@@ -49,7 +49,7 @@ export const auth = betterAuth({
   plugins: [
     username(),
     customSession(async ({ user, session }) => {
-      const roles = findUserRoles(user.id);
+      const roles = await findUserRoles(user.id);
       return {
         roles,
         user: {

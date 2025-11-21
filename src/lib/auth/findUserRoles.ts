@@ -1,11 +1,11 @@
 export default async function findUserRoles(id: string) {
   try {
-    const role = await fetch(
+    const res = await fetch(
       `${process.env.BETTER_AUTH_URL}/api/users/role/${id}`
     );
-
-    console.log("role: ", role?.json());
-    return role.json();
+    const role = await res.json();
+    // console.log("role: ", role);
+    return role.role;
   } catch (err) {
     console.log(err);
   }
