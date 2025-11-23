@@ -1,5 +1,5 @@
 import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, pgEnum, integer } from "drizzle-orm/pg-core";
 export const userRoleEnum = pgEnum("user_role", ["guest", "author", "admin"]);
 export const user = pgTable("user", {
   id: text("id").primaryKey().unique().notNull(),
@@ -64,6 +64,18 @@ export const verification = pgTable("verification", {
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
+
+export const category = pgTable("category", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull().unique(),
+  slug: text("slug").notNull().unique(),
+  description: text("description"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});
 export const postStatusEnum = pgEnum("post_status", ["draft", "published"]);
 export const post = pgTable("post", {
   id: text("id").primaryKey(),
@@ -78,6 +90,13 @@ export const post = pgTable("post", {
   content: text("content").notNull(),
   summary: text("summary"),
   status: text("status").default("draft"),
+  
+  categoryId: text("category_id").references(() => category.id),
+  views: integer("views").default(0).notNull(),
+  isFeatured: boolean("is_featured").default(false).notNull(),
+  publishedAt: timestamp("published_at"),
+  metaTitle: text("meta_title"),
+  metaDescription: text("meta_description"),
 
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
@@ -150,6 +169,10 @@ export const postRelations = relations(post, ({ one, many }) => ({
     fields: [post.authorId],
     references: [user.id],
   }),
+  category: one(category, {
+    fields: [post.categoryId],
+    references: [category.id],
+  }),
 
   comments: many(comment),
   likes: many(postLike),
@@ -172,6 +195,10 @@ export const commentRelations = relations(comment, ({ one, many }) => ({
   }),
 
   replies: many(comment),
+}));
+
+export const categoryRelations = relations(category, ({ many }) => ({
+  posts: many(post),
 }));
 
 export const postLikeRelations = relations(postLike, ({ one }) => ({
@@ -223,3 +250,5 @@ export type Account = InferSelectModel<typeof account>;
 export type NewAccount = InferInsertModel<typeof account>;
 export type Verification = InferSelectModel<typeof verification>;
 export type NewVerification = InferInsertModel<typeof verification>;
+export type Category = InferSelectModel<typeof category>;
+export type NewCategory = InferInsertModel<typeof category>;
