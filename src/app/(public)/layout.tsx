@@ -7,9 +7,6 @@ export default async function PublicLayout({
 }) {
   return (
     <div>
-      <div>
-        <NavBar />
-      </div>
       {children}
     </div>
   );
