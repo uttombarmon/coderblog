@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import SignInOrDashboardButton from "./SignInOrDashboardButton";
 
 const CATEGORIES = [
   { name: "Frontend", href: "/blog?category=frontend" },
@@ -69,23 +70,39 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-4">
-          <div className={cn("relative transition-all duration-300", isSearchOpen ? "w-full absolute left-0 px-4 bg-background z-20 h-16 flex items-center" : "w-auto")}>
+          <div
+            className={cn(
+              "relative transition-all duration-300",
+              isSearchOpen
+                ? "w-full absolute left-0 px-4 bg-background z-20 h-16 flex items-center"
+                : "w-auto"
+            )}
+          >
             {isSearchOpen ? (
               <div className="relative w-full max-w-md mx-auto flex items-center gap-2">
-                 <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   type="search"
                   placeholder="Search posts..."
                   className="w-full pl-9 rounded-full bg-muted/50 focus:bg-background transition-colors"
                   autoFocus
                 />
-                <Button variant="ghost" size="icon" onClick={() => setIsSearchOpen(false)}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsSearchOpen(false)}
+                >
                   <X className="h-5 w-5" />
                 </Button>
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                 <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsSearchOpen(true)}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="md:hidden"
+                  onClick={() => setIsSearchOpen(true)}
+                >
                   <Search className="h-5 w-5" />
                 </Button>
                 <div className="relative hidden md:block">
@@ -101,13 +118,20 @@ export function Header() {
           </div>
 
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
               <span className="sr-only">Toggle menu</span>
             </Button>
-            <Button className="hidden md:flex rounded-full px-6">
-              Sign In
-            </Button>
+            <SignInOrDashboardButton />
           </div>
         </div>
       </div>
@@ -124,7 +148,9 @@ export function Header() {
               Home
             </Link>
             <div className="space-y-2">
-              <p className="text-sm font-medium text-muted-foreground">Categories</p>
+              <p className="text-sm font-medium text-muted-foreground">
+                Categories
+              </p>
               <div className="pl-4 flex flex-col gap-2 border-l">
                 {CATEGORIES.map((category) => (
                   <Link
@@ -160,9 +186,7 @@ export function Header() {
               Contact
             </Link>
           </nav>
-          <Button className="w-full rounded-full">
-            Sign In
-          </Button>
+          <Button className="w-full rounded-full">Sign In</Button>
         </div>
       )}
     </header>

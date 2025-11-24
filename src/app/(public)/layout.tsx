@@ -1,4 +1,5 @@
-import NavBar from "@/components/custom/layout/public/NavBar";
+import { Footer } from "@/components/custom/layout/Footer";
+import { Header } from "@/components/custom/layout/Header";
 
 export default async function PublicLayout({
   children,
@@ -7,7 +8,9 @@ export default async function PublicLayout({
 }) {
   return (
     <div>
+      <Header />
       {children}
+      <Footer />
     </div>
   );
 }
